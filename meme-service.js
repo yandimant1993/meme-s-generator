@@ -1,16 +1,19 @@
 'use strict'
 
-
-
+const gElCanvas = document.querySelector('.canvas-picture')
+const gCtx = gElCanvas.getContext('2d')
+var gCurrUrl
 
 var gMeme = {
     selectedImgId: 5,
     selectedLineIdx: 0,
     lines: [
         {
-            txt: 'i sometimes eat Falafel',
+            txt: 'Insert your text',
             size: 20,
-            color: 'red'
+            color: 'black',
+            pos: { x: gElCanvas.width / 2, y: 100 },
+            lineTextColor: 'black'
         }
     ]
 }
@@ -23,10 +26,37 @@ function getMeme() {
 
 
 function setLineTxt(txt) {
-    gMeme.txt = txt
-    renderMeme()
+    gMeme.lines[gMeme.selectedLineIdx].txt = txt
+    renderMeme(gCurrUrl)
 }
 
 function setPicId(id) {
     gMeme.selectedImgId = id
+}
+
+function setColor(color) {
+    gMeme.lines[gMeme.selectedLineIdx].color = color
+    renderMeme(gCurrUrl)
+}
+
+function changeFontSize(fontSize) {
+    gMeme.lines[gMeme.selectedLineIdx].size = +fontSize
+    renderMeme(gCurrUrl)
+}
+
+function setLineTextColor(lineColor) {
+    gMeme.lines[gMeme.selectedLineIdx].lineTextColor = lineColor
+    renderMeme(gCurrUrl)
+}
+
+function  addNewLine(){
+    const newLine = {
+        txt: '',
+        size: 20,
+        align: 'center',
+        color: '#ffffff',
+        lineTextColor: '#000000',
+        pos: { x: gElCanvas.width / 2, y: 100 + gMeme.lines.length * 50 }
+    }
+    gMeme.lines.push(newLine)
 }
